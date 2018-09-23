@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var del = require('del');
 var sequence = require('run-sequence');
 
-gulp.task('build:dev', function () {
+gulp.task('build', function () {
   sequence('clear', 'dotClasp', 'envJs', 'build');
 });
 
