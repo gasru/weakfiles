@@ -2,8 +2,8 @@ var gulp = require('gulp');
 var del = require('del');
 var sequence = require('run-sequence');
 
-gulp.task('default', function () {
-  sequence('clear', 'dotClasp', 'envJs');
+gulp.task('build:dev', function () {
+  sequence('clear', 'dotClasp', 'envJs', 'build');
 });
 
 gulp.task('dotClasp', function () {
@@ -20,6 +20,13 @@ gulp.task('envJs', function () {
 
 gulp.task('clear', clear);
 
+gulp.task('build', build);
+
 function clear() {
-  del(['./.clasp.json', './dist']);
+  del(['./dist', './.clasp.json']);
+}
+
+function build() {
+  gulp.src('./src/*')
+    .pipe(gulp.dest('dist'));
 }
