@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:dev": "CLASPPATH=./settings/dev gulp build && ./node_modules/.bin/clasp push",
-    "build:prod": "CLASPPATH=./settings/prod gulp build && ./node_modules/.bin/clasp push"
+    "build:dev": "CLASPPATH=./settings/dev gulp buildit && clasp push && gulp rmClasp",
+    "build:prod": "CLASPPATH=./settings/prod gulp buildit && clasp push && gulp rmClasp"
   },
   "repository": {
     "type": "git",

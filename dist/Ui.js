@@ -2,7 +2,7 @@
  * @file Пользовательские вызовы и манипуляции с Ui
  */
 
-/* exported onOpen */
+/* exported onOpen, userActionStart */
 
 function onOpen() {
   SpreadsheetApp.getUi()
