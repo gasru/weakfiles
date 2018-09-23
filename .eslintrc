@@ -1,0 +1,22 @@
+{
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": [
+    "prettier",
+    "googleappsscript"
+  ],
+  "env": {
+    "amd": true,
+    "googleappsscript/googleappsscript": true
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "import/prefer-default-export": 0
+  },
+  "globals": {
+    "Drive": true
+  }
+}

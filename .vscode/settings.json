@@ -1,0 +1,11 @@
+{
+  "git.enabled": true,
+  "eslint.alwaysShowStatus": true,
+  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": true,
+  "files.autoSave": "onFocusChange",
+  "eslint.validate": [
+    "javascript"
+  ],
+  "javascript.suggestionActions.enabled": false
+}
