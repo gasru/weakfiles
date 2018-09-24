@@ -2,9 +2,11 @@
 var gulp = require('gulp');
 var del = require('del');
 var sequence = require('run-sequence');
+var concat = require('gulp-concat');
+var replace = require('gulp-replace');
 
 gulp.task('buildit', function() {
-  sequence('clear', 'dotClasp', 'envJs', 'build', 'rmClasp');
+  sequence(['clear', 'dotClasp', 'envJs', 'build', 'build:client', 'rmClasp']);
 });
 
 gulp.task('dotClasp', function() {
@@ -19,20 +21,38 @@ gulp.task('envJs', function() {
   gulp.src(`${claspPath}*.js`).pipe(gulp.dest('./dist'));
 });
 
-gulp.task('clear', clear);
-gulp.task('rmClasp', rmClasp);
+gulp.task('clear', function() {
+  sequence(['clearDist', 'rmClasp']);
+});
+gulp.task('rmClasp', function() {
+  return del.sync('./.clasp.json');
+});
+gulp.task('clearDist', function() {
+  return del.sync('./dist');
+});
 
 gulp.task('build', build);
 
-function clear() {
-  del('./dist');
-  rmClasp();
-}
-
-function rmClasp() {
-  del('./.clasp.json');
-}
-
 function build() {
-  gulp.src('./src/*').pipe(gulp.dest('dist'));
+  gulp
+    .src(
+      [
+        './src/server/**',
+        './src/ui/**',
+        './src/appsscript.json',
+        './src/client/**/*.html'
+      ],
+      {
+        base: './src'
+      }
+    )
+    .pipe(gulp.dest('dist'));
 }
+
+gulp.task('build:client', function() {
+  gulp
+    .src('./src/client/**/*.js')
+    .pipe(concat('bundle.js.html'))
+    .pipe(replace(/((.|\n|\r)*)/, '<script>\n$1</script>'))
+    .pipe(gulp.dest('./dist/client'));
+});

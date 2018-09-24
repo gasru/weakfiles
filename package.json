@@ -28,6 +28,8 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-prettier": "^2.6.2",
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-replace": "^1.0.0",
     "minimist": "^1.2.0",
     "prettier": "^1.14.3",
     "run-sequence": "^2.2.1"
