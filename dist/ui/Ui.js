@@ -7,7 +7,6 @@
 function onOpen() {
   SpreadsheetApp.getUi()
     .createMenu('Поиск')
-    .addItem('Начать поиск', 'userActionStart')
     .addItem('Показать боковую панель', 'userActionShowSidebar')
     .addToUi();
 }

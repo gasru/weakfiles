@@ -1,3 +1,5 @@
+/* exported search */
+
 function search(pageToken) {
   if (pageToken === 'start') {
     SpreadsheetApp.getActive()
