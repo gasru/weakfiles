@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      href="https://unpkg.com/tabulator-tables@4.2.4/dist/css/tabulator.min.css"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/tabulator-tables@4.2.4/dist/js/tabulator.min.js"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.0.1/progressbar.min.js"></script>
+  </head>
+  <body>
+    <div class="aspectwrapper">
+      <div>
+        <p>
+          Сервис находит все файлы, к которым может получить доступ Анонимус,
+          если у него будет ссылка, или поисковик, если включен соответствующий
+          доступ.
+        </p>
+        <p>Ограничение на поиск: 5000 найденных элементов.</p>
+      </div>
+      <div id="bar"></div>
+      <div class="content">
+        <div id="example-table"></div>
+      </div>
+      <div>
+        <p>
+          <a
+            href="https://github.com/gasru/weakfiles/issues"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Код, предложения и замечания</a
+          >
+        </p>
+        <p>
+          <a
+            href="mailto:oshliaer@gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            >e-mail</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <script>
+      let table;
+      const bar = new ProgressBar.Line('#bar');
+      let barInterval;
+
+      window.addEventListener('DOMContentLoaded', start(), true);
+
+      function start() {
+        search('start');
+        table = new Tabulator('#example-table', {
+          layout: 'fitColumns',
+          pagination: 'local',
+          height: '500px',
+          paginationSize: 200,
+          paginationButtonCount: 5,
+          // dataTree: true,
+          // dataTreeStartExpanded: false,
+          // dataTreeChildField: 'permissions',
+          data: [],
+          columns: [
+            // {
+            //   title: 'ID',
+            //   field: 'id'
+            // },
+            {
+              title: 'Title',
+              field: 'title',
+              formatter: 'link',
+              formatterParams: {
+                urlField: 'alternateLink',
+                target: '_blank'
+              },
+              headerFilter: 'input',
+              bottomCalc: 'count',
+              sorter: 'string'
+            },
+            {
+              title: 'MimeType',
+              field: 'mimeType',
+              headerFilter: true
+            },
+            {
+              title: 'modifiedDate',
+              field: 'modifiedDate',
+              headerFilter: true,
+              sorter: 'string'
+            },
+            {
+              title: 'Trashed',
+              field: 'labels.trashed',
+              sorter: 'boolean',
+              align: 'center',
+              formatter: 'tickCross',
+              width: 50
+            }
+          ]
+        });
+
+        // var bar =
+        bar.animate(1);
+
+        barInterval = setInterval(function() {
+          bar.set(0);
+          bar.animate(1);
+        }, 2000);
+      }
+
+      function keepOn() {
+        return true;
+      }
+
+      function search(nextPageToken) {
+        google.script.run
+          .withSuccessHandler(function(res) {
+            if (res.files.length)
+              if (table.getData().length) {
+                table.addData(res.files);
+              } else {
+                table.setData(res.files);
+              }
+            console.log(
+              res.nextPageToken,
+              res.files.length,
+              table.getData().length
+            );
+            if (
+              keepOn() &&
+              res.nextPageToken &&
+              table.getData().length < 5000
+            ) {
+              search(res.nextPageToken);
+            } else {
+              bar.set(0);
+              clearInterval(barInterval);
+            }
+          })
+          .withFailureHandler(function(err) {
+            bar.set(0);
+            clearInterval(barInterval);
+            console.error(err);
+          })
+          .search(nextPageToken);
+      }
+    </script>
+  </body>
+</html>
