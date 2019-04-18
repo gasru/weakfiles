@@ -25,3 +25,8 @@
 Директория с проектом https://drive.google.com/drive/folders/1IDu4p8QfXZe01zHgOpbWwjvcGCsTTDqP?usp=sharing
 
 Отличие новой версии в том, что можно перебрать все файлы Диска
+
+## Используемые программы
+
+* https://github.com/olifolkerd/tabulator
+* https://github.com/kimmobrunfeldt/progressbar.js

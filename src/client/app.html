@@ -68,7 +68,10 @@
           });
         search('start');
         table = new Tabulator('#example-table', {
-          layout: 'fitColumns',
+          layout: 'fitDataFill',
+          responsiveLayout: 'collapse',
+          responsiveLayoutCollapseStartOpen: false,
+          // layout: 'fitColumns',
           pagination: 'local',
           height: '500px',
           paginationSize: 200,
@@ -78,6 +81,14 @@
           // dataTreeChildField: 'permissions',
           data: [],
           columns: [
+            {
+              formatter: 'responsiveCollapse',
+              width: 30,
+              minWidth: 30,
+              align: 'center',
+              resizable: false,
+              headerSort: false
+            },
             // {
             //   title: 'ID',
             //   field: 'id'
@@ -92,18 +103,30 @@
               },
               headerFilter: 'input',
               bottomCalc: 'count',
-              sorter: 'string'
+              sorter: 'string',
+              width: 200,
+              responsive: 0
             },
             {
               title: 'MimeType',
               field: 'mimeType',
               // align: 'right',
               // width: 50,
-              headerFilter: true
+              headerFilter: true,
+              width: 200,
+              responsive: 1
             },
             {
               title: 'modifiedDate',
               field: 'modifiedDate',
+              headerFilter: true,
+              // align: 'right',
+              // width: 50,
+              sorter: 'string'
+            },
+            {
+              title: 'createdDate',
+              field: 'createdDate',
               headerFilter: true,
               // align: 'right',
               // width: 50,
@@ -116,6 +139,14 @@
             //   align: 'center',
             //   // width: 50,
             //   formatter: 'tickCross'
+            // },
+            // {
+            //   title: 'permissions',
+            //   field: 'permissions.name'
+            //   // headerFilter: true,
+            //   // align: 'right',
+            //   // width: 50,
+            //   // sorter: 'string'
             // }
           ]
         });
