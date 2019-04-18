@@ -3,11 +3,11 @@ function search(pageToken) {
   if (pageToken === 'start') pageToken = undefined;
 
   var optionalArgs = {
-    q: '"me" in owners',
+    q: '"me" in owners and trashed=false',
     maxResults: 1000,
     orderBy: 'modifiedDate desc',
     fields:
-      'items(id, title, modifiedDate, createdDate, mimeType, alternateLink, permissions(type, id, name, emailAddress), labels(trashed)), nextPageToken'
+      'items(id, title, modifiedDate, createdDate, mimeType, alternateLink, permissions(type, id, name, emailAddress)), nextPageToken'
   };
   if (pageToken) optionalArgs.pageToken = pageToken;
   var list = Drive.Files.list(optionalArgs);

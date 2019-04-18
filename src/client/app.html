@@ -17,28 +17,20 @@
   </head>
   <body>
     <div class="aspectwrapper">
-      <div>
+      <a href="#" id="btnabout">Описание</a>
+      <div id="about" style="display: none;">
         <p>
           Сервис находит все файлы, к которым может получить доступ Анонимус,
           если у него будет ссылка, или поисковик, если включен соответствующий
           доступ.
-        </p>
-        <p>Ограничение на поиск: 5000 найденных элементов.</p>
-      </div>
-      <div id="bar"></div>
-      <div class="content">
-        <div id="example-table"></div>
-      </div>
-      <div>
-        <p>
+          <br />Ограничение на поиск: 5000 найденных элементов.<br />
           <a
             href="https://github.com/gasru/weakfiles/issues"
             target="_blank"
             rel="noopener noreferrer"
             >Код, предложения и замечания</a
           >
-        </p>
-        <p>
+          <br />
           <a
             href="mailto:oshliaer@gmail.com"
             target="_blank"
@@ -46,6 +38,10 @@
             >e-mail</a
           >
         </p>
+      </div>
+      <div id="bar"></div>
+      <div class="content" id="content" style="display: block;">
+        <div id="example-table"></div>
       </div>
     </div>
 
@@ -57,6 +53,19 @@
       window.addEventListener('DOMContentLoaded', start(), true);
 
       function start() {
+        document
+          .getElementById('btnabout')
+          .addEventListener('click', function() {
+            var div = document.getElementById('about');
+            var content = document.getElementById('content');
+            if (div.style.display === 'none') {
+              div.style.display = 'block';
+              content.style.display = 'none';
+            } else {
+              div.style.display = 'none';
+              content.style.display = 'block';
+            }
+          });
         search('start');
         table = new Tabulator('#example-table', {
           layout: 'fitColumns',
@@ -88,26 +97,29 @@
             {
               title: 'MimeType',
               field: 'mimeType',
+              // align: 'right',
+              // width: 50,
               headerFilter: true
             },
             {
               title: 'modifiedDate',
               field: 'modifiedDate',
               headerFilter: true,
+              // align: 'right',
+              // width: 50,
               sorter: 'string'
             },
-            {
-              title: 'Trashed',
-              field: 'labels.trashed',
-              sorter: 'boolean',
-              align: 'center',
-              formatter: 'tickCross',
-              width: 50
-            }
+            // {
+            //   title: 'Trashed',
+            //   field: 'labels.trashed',
+            //   sorter: 'boolean',
+            //   align: 'center',
+            //   // width: 50,
+            //   formatter: 'tickCross'
+            // }
           ]
         });
 
-        // var bar =
         bar.animate(1);
 
         barInterval = setInterval(function() {
