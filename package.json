@@ -17,13 +17,13 @@
   },
   "homepage": "https://github.com/gasru/weakfiles#readme",
   "devDependencies": {
-    "@google/clasp": "^2.1.0",
-    "@types/google-apps-script": "0.0.44",
-    "eslint": "^5.16.0",
-    "eslint-config-google": "^0.12.0",
-    "eslint-config-prettier": "^4.1.0",
-    "eslint-plugin-googleappsscript": "^1.0.1",
-    "eslint-plugin-prettier": "^3.0.1",
-    "prettier": "^1.17.0"
+    "@google/clasp": "^2.2.1",
+    "@types/google-apps-script": "0.0.58",
+    "eslint": "^6.2.2",
+    "eslint-config-google": "^0.13.0",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-googleappsscript": "^1.0.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.18.2"
   }
 }
